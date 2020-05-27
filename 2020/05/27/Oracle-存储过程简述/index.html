@@ -81,14 +81,14 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="description" content="oracle学习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2020/05/06/hello-world/index.html">
+<meta property="og:title" content="Oracle 存储过程简述">
+<meta property="og:url" content="http://yoursite.com/2020/05/27/Oracle-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E7%AE%80%E8%BF%B0/index.html">
 <meta property="og:site_name" content="江子川">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta property="article:published_time" content="2020-05-06T08:15:52.393Z">
-<meta property="article:modified_time" content="2020-05-06T08:15:52.393Z">
+<meta property="og:description" content="oracle学习">
+<meta property="article:published_time" content="2020-05-27T09:45:10.000Z">
+<meta property="article:modified_time" content="2020-05-27T09:47:50.027Z">
 <meta property="article:author" content="江子川">
 <meta name="twitter:card" content="summary">
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/05/06/hello-world/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/05/27/Oracle-存储过程简述/"/>
 
 
 
 
 
-  <title>Hello World | 江子川</title>
+  <title>Oracle 存储过程简述 | 江子川</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/06/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/27/Oracle-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E7%AE%80%E8%BF%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="江子川">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World</h1>
+          <h1 class="post-title" itemprop="name headline">Oracle 存储过程简述</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-06T16:15:52+08:00">
-                2020-05-06
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-05-27T17:45:10+08:00">
+                2020-05-27
               </time>
             
 
@@ -306,6 +306,10 @@
           
 
           
+              <div class="post-description">
+                  oracle学习
+              </div>
+          
 
         </div>
       </header>
@@ -320,20 +324,27 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+        <p><em>存储过程是事先经过编译并存储在数据库中的一段SQL语句的集合，调用存储过程可以简化应用开发人员的很多工作，<br>减少数据在数据库和应用服务器之间的传输，对于提高数据处理的效率是有好处的。</em></p>
+<hr>
+<h6 id="存储过程的创建"><a href="#存储过程的创建" class="headerlink" title="存储过程的创建"></a>存储过程的创建</h6><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 无参数存储过程</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">or</span> <span class="keyword">replace</span> <span class="keyword">procedure</span> pro_name</span><br><span class="line"><span class="keyword">is</span></span><br><span class="line">temp <span class="built_in">varchar</span>(<span class="number">1024</span>);</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">    <span class="keyword">select</span> <span class="keyword">count</span>(*) <span class="keyword">into</span> temp <span class="keyword">from</span> <span class="keyword">test</span>;</span><br><span class="line">    <span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">test</span> <span class="keyword">values</span>(<span class="number">3</span>,<span class="string">'sss'</span>,<span class="number">25</span>,<span class="string">'jsk'</span>);</span><br><span class="line">    <span class="keyword">commit</span>;</span><br><span class="line"><span class="keyword">end</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 有参数存储过程</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">or</span> <span class="keyword">replace</span> <span class="keyword">procedure</span> pro_name(v_id <span class="keyword">in</span> <span class="built_in">int</span>,v_age <span class="keyword">in</span> <span class="built_in">int</span>)</span><br><span class="line"><span class="keyword">is</span></span><br><span class="line">temp <span class="built_in">varchar</span>(<span class="number">1024</span>);</span><br><span class="line">v_count number;</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">    v_count := <span class="number">1</span>; <span class="comment">-- 赋值</span></span><br><span class="line">    <span class="keyword">select</span> age <span class="keyword">into</span> v_age <span class="keyword">from</span> <span class="keyword">test</span> <span class="keyword">where</span> <span class="keyword">id</span> = v_id; <span class="comment">-- 使用参数查询</span></span><br><span class="line">    <span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">test</span> <span class="keyword">values</span>(<span class="number">3</span>,<span class="string">'sss'</span>,<span class="number">25</span>,<span class="string">'jsk'</span>);</span><br><span class="line">    <span class="keyword">commit</span>;</span><br><span class="line"><span class="keyword">end</span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在存储过程中不能直接使用<em>select * from test</em> 这种查询方式，需要使用临时变量存储查询结果。书写SQL语句时，使用 <strong>;</strong> 作为分隔符。</p>
+</blockquote>
+<hr>
+<h6 id="在命令行窗口中执行存储过程"><a href="#在命令行窗口中执行存储过程" class="headerlink" title="在命令行窗口中执行存储过程"></a>在命令行窗口中执行存储过程</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exec</span> pro_name;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<h6 id="PL-SQL"><a href="#PL-SQL" class="headerlink" title="PL/SQL"></a>PL/SQL</h6><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">begin</span></span><br><span class="line">    pro_name;</span><br><span class="line"><span class="keyword">end</span>;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
+<h6 id="java程序调用"><a href="#java程序调用" class="headerlink" title="java程序调用"></a>java程序调用</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hibernateDao.excuteSqlUpdate(<span class="string">"&#123;Call proc_name()&#125;"</span>);</span><br></pre></td></tr></table></figure>
+<hr>
+<p><em>在编写存储过程的时候可以使用游标(cursor),游标是SQL的一个内存工作区，可以用来临时存储数据库查询到的数据。</em></p>
+<blockquote>
+<p>游标分三类：隐式游标，显示游标，动态游标；隐式游标是系统自动关闭或开启的，但用户执行查询单一数据的dml时，系统自动开启。</p>
+</blockquote>
+<blockquote>
+<p>使用动态游标需要用户自定义。主要步骤：定义游标，开启游标，操作数据，提交，关闭游标。</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 定义游标</span></span><br><span class="line">Cursor cur_policy is;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 开启游标</span></span><br><span class="line">Open cur_policy;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 操作数据</span></span><br><span class="line">Fetch cur_policy;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 提交</span></span><br><span class="line"><span class="keyword">commit</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 关闭游标</span></span><br><span class="line">Close cur_policy;</span><br><span class="line"></span><br><span class="line"><span class="comment">--提示信息</span></span><br><span class="line">dbms_output.putline("提示信息");</span><br><span class="line"></span><br><span class="line"><span class="comment">--提取所有数据</span></span><br><span class="line">Fetch cur_policy bulk collect into table;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -357,15 +368,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2020/05/06/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/05/27/Oracle-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B%E7%AE%80%E8%BF%B0/" rel="prev" title="Oracle 存储过程简述">
-                Oracle 存储过程简述 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -486,7 +497,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#存储过程的创建"><span class="nav-number">1.</span> <span class="nav-text">存储过程的创建</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#在命令行窗口中执行存储过程"><span class="nav-number">2.</span> <span class="nav-text">在命令行窗口中执行存储过程</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#PL-SQL"><span class="nav-number">3.</span> <span class="nav-text">PL&#x2F;SQL</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#java程序调用"><span class="nav-number">4.</span> <span class="nav-text">java程序调用</span></a></li></ol></div>
             
 
           </div>
